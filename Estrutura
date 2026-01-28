@@ -1,0 +1,4 @@
+GuestHost/
+ ├─ index.html          ← PRIMEIRA PÁGINA
+ └─ raw/
+     └─ index.html      ← SEGUNDA PÁGINA (RAW)
