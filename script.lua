@@ -1,0 +1,1 @@
+https://raw.githubusercontent.com/USUARIO/meu-raw/main/script.lua
