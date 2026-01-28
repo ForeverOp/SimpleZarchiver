@@ -1,0 +1,36 @@
+const express = require("express");
+const fs = require("fs");
+
+const app = express();
+app.use(express.text({ limit: "10mb" }));
+
+const DB = "scripts.json";
+
+if (!fs.existsSync(DB)) {
+  fs.writeFileSync(DB, "[]");
+}
+
+app.post("/save", (req, res) => {
+  const scripts = JSON.parse(fs.readFileSync(DB));
+  const id = scripts.length;
+
+  scripts.push(req.body);
+  fs.writeFileSync(DB, JSON.stringify(scripts));
+
+  res.end(id.toString());
+});
+
+app.get("/raw/:id", (req, res) => {
+  const scripts = JSON.parse(fs.readFileSync(DB));
+  const id = Number(req.params.id);
+
+  if (!scripts[id]) {
+    res.end("not found");
+    return;
+  }
+
+  res.setHeader("Content-Type", "text/plain");
+  res.end(scripts[id]);
+});
+
+app.listen(3000);
