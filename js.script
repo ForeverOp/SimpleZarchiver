@@ -1,0 +1,2 @@
+location.href =
+  location.pathname + "?id=" + rid + "&code=" + encoded;
