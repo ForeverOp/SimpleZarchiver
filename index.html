@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>GuestHost RAW Creator</title>
+<title>RAW</title>
 
 <style>
 body {
@@ -11,45 +11,33 @@ body {
   background:#000;
   color:#0f0;
   font-family:monospace;
+  white-space:pre;
 }
 
-textarea {
-  width:100%;
-  height:260px;
-  background:#000;
-  color:#0f0;
-  border:2px solid #0f0;
-  padding:10px;
-}
-
-button {
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  font-size:16px;
-  cursor:pointer;
+#id {
+  opacity:0.6;
+  margin-bottom:10px;
+  display:block;
 }
 </style>
 </head>
 
 <body>
 
-<h3>Criar RAW</h3>
-
-<textarea id="code" placeholder="Cole o script Lua aqui"></textarea>
-<button onclick="criar()">Entrar raw criado</button>
+<small id="id"></small>
+<pre id="out"></pre>
 
 <script>
-function criar() {
-  const code = document.getElementById("code").value.trim();
-  if (!code) return;
+const params = new URLSearchParams(location.search);
+const raw = params.get("code");
+const id = params.get("id");
 
-  const encoded = encodeURIComponent(code);
-  const id = Date.now().toString(36);
-
-  // 🔥 VAI PARA A SEGUNDA PÁGINA
-  location.href =
-    "/rawtwo/?id=" + id + "&code=" + encoded;
+if (!raw) {
+  document.getElementById("out").innerText = "not found";
+} else {
+  document.getElementById("id").innerText = "RAW ID: " + id;
+  document.getElementById("out").innerText =
+    decodeURIComponent(raw);
 }
 </script>
 
